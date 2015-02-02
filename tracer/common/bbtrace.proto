@@ -1,0 +1,66 @@
+//
+// Copyright 2015, Roberto Paleari (@rpaleari) and Aristide Fattori (@joystick)
+//
+
+package bbtrace;
+
+message TraceHeader {
+  enum TraceMagic {
+    TRACE_MAGIC = 0x0b0b0b0b;
+  }
+
+  required fixed32 magic = 1;
+  required uint64 timestamp = 2;
+  required uint32 hash = 3;
+}
+
+message Edge {
+  required uint64 prev = 1;
+  required uint64 next = 2;
+  required uint64 hit  = 3;
+}
+
+// Information about "interesting" exceptions observed during program execution
+// (these may both be handled by the application, or cause program termination)
+message Exception {
+  enum ExceptionType {
+    TYPE_UNKNOWN = 0;
+    TYPE_VIOLATION = 1;
+  }
+
+  enum ExceptionAccess {
+    ACCESS_UNKNOWN = 0;
+    ACCESS_READ = 1;
+    ACCESS_WRITE = 2;
+    ACCESS_EXECUTE = 3;
+  }
+
+  required uint32 tid = 1;
+  required ExceptionType type = 2 [default = TYPE_UNKNOWN];
+
+  // Program counter
+  required uint64 pc = 3;
+
+  // Faulty address
+  required uint64 faultyaddr = 4;
+
+  // Access type
+  required ExceptionAccess access = 5 [default = ACCESS_UNKNOWN];
+
+  // Stack trace
+  repeated uint64 stacktrace = 6;
+}
+
+// Memory-mapped regions
+message MemoryRegion {
+  required uint64 base = 1;
+  required uint32 size = 2;
+  required string name = 3;
+}
+
+message Trace {
+  required TraceHeader header = 1;
+  repeated Edge edge = 2;
+  repeated Exception exception = 3;
+  repeated MemoryRegion region = 4;
+}

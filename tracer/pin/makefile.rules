@@ -1,0 +1,35 @@
+TEST_TOOL_ROOTS :=
+TEST_ROOTS :=
+SANITY_SUBSET :=
+TOOL_ROOTS := pintrace
+SA_TOOL_ROOTS :=
+APP_ROOTS :=
+OBJECT_ROOTS :=
+DLL_ROOTS :=
+LIB_ROOTS :=
+
+TOOL_CXXFLAGS += -I../ -std=c++11
+TOOL_LPATHS += -L../common/
+TOOL_LIBS += -lprotobuf -ltracer
+TOOL_OBJS = \
+	$(OBJDIR)pintrace$(OBJ_SUFFIX) \
+	$(OBJDIR)images$(OBJ_SUFFIX)
+
+# Windows-specific objects
+ifeq ($(TARGET_OS),windows)
+  TOOL_OBJS += $(OBJDIR)win_exception$(OBJ_SUFFIX)
+endif
+
+# Linux-specific objects
+ifeq ($(TARGET_OS),linux)
+  TOOL_OBJS += $(OBJDIR)linux_exception$(OBJ_SUFFIX)
+endif
+
+libtracer=../common/libtracer.a
+
+.PHONY: $(libtracer)
+$(libtracer):
+	@$(MAKE) -C $(dir $(libtracer))
+
+$(OBJDIR)pintrace$(PINTOOL_SUFFIX): $(libtracer) $(TOOL_OBJS)
+	$(LINKER) $(TOOL_LDFLAGS) $(LINK_EXE)$@ $(TOOL_OBJS) $(TOOL_LPATHS) $(TOOL_LIBS)

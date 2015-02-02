@@ -1,0 +1,14 @@
+*pyc
+tracer/pin/bbtrace.pb.*
+tracer/pin/obj-intel64
+tracer/pin/pin.log
+tracer/common/bbtrace.pb.*
+tracer/common/*.o
+tracer/common/libtracer.a
+tracer/bts/*.o
+tracer/bts/bts_trace
+tracer/bts/bts_trace
+tests/bisect
+tests/quicksort
+tests/test?
+viewer/bbtrace_pb2.py

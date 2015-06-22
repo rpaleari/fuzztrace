@@ -39,7 +39,7 @@ compile the PIN module, set the `PIN_ROOT` environment variable and launch
 `make` from the `tracer/pin` directory, e.g.:
 
 	roby@gimli:~/apps/pin$ export PIN_ROOT=$(pwd)
-	roby@gimli:~/apps/pin$ cd ~/projects/fuzztrace/tracer-pin
+	roby@gimli:~/apps/pin$ cd ~/projects/fuzztrace/tracer/pin
 	roby@gimli:~/projects/fuzztrace/tracer/pin$ make
 
 

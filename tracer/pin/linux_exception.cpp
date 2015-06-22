@@ -7,14 +7,12 @@
 
 #include "linux_exception.H"
 
-#include "exception.H"
-
 Exception* Linux_BuildException(THREADID tid, INT32 sig,
-                                const EXCEPTION_INFO *pExceptInfo) {
+				const EXCEPTION_INFO *pExceptInfo) {
   assert(sig == SIGSEGV);
   assert(pExceptInfo != NULL);
   assert(PIN_GetExceptionClass(PIN_GetExceptionCode(pExceptInfo)) ==
-         EXCEPTCLASS_ACCESS_FAULT);
+	 EXCEPTCLASS_ACCESS_FAULT);
 
   ADDRINT pc = PIN_GetExceptionAddress(pExceptInfo);
 

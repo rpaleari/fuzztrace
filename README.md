@@ -45,7 +45,7 @@ compile the PIN module, set the `PIN_ROOT` environment variable and launch
 
 You should be able to trace your target program using the `pintrace` PIN tool:
 
-	roby@gimli:~/projects/fuzztrace/tracer/pin$ ${PIN_ROOT}/pin.sh -t obj-intel64/pintrace.so -o /dev/shm/trace.bin -- /bin/ls
+	roby@gimli:~/projects/fuzztrace/tracer/pin$ ${PIN_ROOT}/pin.sh -t obj-intel64/pintrace.so -f /dev/shm/trace.bin -- /bin/ls
 
 ## Trace viewer ##
 
